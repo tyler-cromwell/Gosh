@@ -1,26 +1,22 @@
 package main
 
-import (
-    "bufio"
-    "fmt"
-    "os"
-)
+import "github.com/chzyer/readline"
+
 
 func main() {
     const prompt = "gosh$ ";
-    var scanner = bufio.NewScanner(os.Stdin);
+    var rl, err = readline.New(prompt);
+
+    if err != nil {
+        panic(err);
+    }
+    defer rl.Close();
 
     for {
-        fmt.Print(prompt);
-        if scanner.Scan() {
-            fmt.Println(scanner.Text());
-        } else {
+        var line, err = rl.Readline();
+        if err != nil {
             break;
         }
-    }
-
-    if err := scanner.Err(); err != nil {
-        fmt.Fprintln(os.Stderr, "reading standard input:", err);
+        println(line);
     }
 }
-
