@@ -18,12 +18,15 @@ func main() {
         var line, err = rl.Readline();
         var input = strings.Trim(line, " ");
 
-        if err != nil {
+        if err != nil || input == "exit" {
             break;
-        } else if input == "exit" {
-            break;
+        } else if input == "" {
+            continue;
+        } else {
+            var tokens = strings.Split(input, " ");
+            for _, element := range tokens {
+                println(element);
+            }
         }
-
-        println(input);
     }
 }
